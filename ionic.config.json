@@ -1,5 +1,7 @@
 {
   "name": "bohran",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

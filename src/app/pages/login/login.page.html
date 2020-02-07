@@ -6,17 +6,19 @@
 
 <ion-content dir="rtl" class="main-background" color="main">
   <ion-text style="text-align: center; ">
-    <h1 class=" text-dark">
+    <h2 class=" text-dark">
       <b>به نرم افزار مدیریت بحران خوش آمدید</b>
-    </h1>
+    </h2>
   </ion-text>
   <ion-input
     placeholder="نام کاربری"
+    [(ngModel)]="username"
     class="light text-dark"
     style="margin-top: 30px; margin-left: auto;margin-right: auto; width: 90%;"
   ></ion-input>
   <ion-input
     placeholder="رمز عبور"
+    [(ngModel)]="password"
     type="password"
     class="light text-dark"
     style="margin-top: 20px;margin-bottom: 20px;margin-left: auto;margin-right: auto; width: 90%;"

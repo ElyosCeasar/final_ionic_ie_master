@@ -1,17 +1,31 @@
 <ion-header>
   <ion-toolbar color="main" class="dark">
-    <!-- <ion-buttons slot="start">
-      <ion-button (click)="logout()" class="text-light">
-        <ion-icon slot="icon-only" name="log-out"></ion-icon>
-      </ion-button>
-    </ion-buttons> -->
     <ion-buttons slot="start">
       <ion-menu-button class="text-light">
         <ion-icon slot="icon-only" name="menu"></ion-icon>
       </ion-menu-button>
     </ion-buttons>
-    <ion-title class="text-light">show</ion-title>
+    <ion-title class="text-light">مشاهده</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content dir="rtl" class="main-background" color="main"> </ion-content>
+<ion-content dir="rtl" class="main-background" color="main">
+  <ion-text style="text-align: center; ">
+    <h1 class=" text-dark">
+      <b>مشاهده‌ی فرم‌های موجود</b>
+    </h1>
+  </ion-text>
+  <ion-list>
+    <ion-list-header>
+      <ion-label style="width: 20%;">#</ion-label>
+      <ion-label style="width: 60%;">عنوان</ion-label>
+      <ion-label style="width: 20%;">عملیات</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let item of forms">
+      <ion-text style="width: 20%;">{{item.key}}</ion-text>
+      <ion-text style="width: 60%;">{{item.name}}</ion-text>
+      <ion-button style="width: 20%;">پر کردن</ion-button>
+      <!-- <ion-button style="width: 10%;">مشاهده کردن</ion-button> -->
+    </ion-item>
+  </ion-list>
+</ion-content>

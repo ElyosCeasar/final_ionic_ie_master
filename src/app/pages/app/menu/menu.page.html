@@ -1,13 +1,13 @@
 <ion-menu contentId="content" type="overlay" side="end">
   <ion-header dir="rtl">
-    <ion-toolbar color="main" class=" menu-head">
+    <ion-toolbar color="main" class=" dark2">
       <ion-title> <span color="main" class="text-light">منو</span></ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content color="main" class="dark" dir="rtl">
     <div *ngFor="let p of pages">
-      <ion-menu-toggle *ngIf="p.url">
+      <ion-menu-toggle *ngIf="p.url &&p.url!='/'">
         <ion-item
           [routerLink]="p.url"
           routerDirection="root"
@@ -21,15 +21,18 @@
           </ion-label>
         </ion-item>
       </ion-menu-toggle>
-      <!-- <button
-        (click)="p.open=!p.open"
-        color="main"
-        class="dark text-light"
-        [class.active-parent]="p.open"
-        detail="false"
-      >
-        {{p.title}}
-      </button> -->
+      <ion-menu-toggle *ngIf="p.url &&p.url=='/'">
+        <ion-button (click)="logout()" color="main" class="dark text-light">
+          <ion-icon
+            [name]="p.icon"
+            slot="start"
+            style="margin-right: 1px;"
+          ></ion-icon>
+          <ion-label style="margin-right: 25px;">
+            {{p.title}}
+          </ion-label>
+        </ion-button>
+      </ion-menu-toggle>
     </div>
   </ion-content>
 </ion-menu>

@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -24,3 +24,24 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+// [text-color="text-color-main"] {
+//   color: white;
+// }
+.main-background {
+  background-color: #006bd7 !important;
+}
+
+.text-light {
+  color: white;
+}
+.text-dark {
+  color: #001529;
+}
+.light {
+  background-color: white;
+}
+
+.dark {
+  background-color: #001529;
+}

@@ -1,0 +1,32 @@
+<ion-header dir="rtl">
+  <ion-toolbar color="main" class="dark">
+    <ion-title class="text-light">مدیریت بحران</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content dir="rtl" class="main-background" color="main">
+  <ion-text style="text-align: center; ">
+    <h1 class=" text-dark">
+      <b>به نرم افزار مدیریت بحران خوش آمدید</b>
+    </h1>
+  </ion-text>
+  <ion-input
+    placeholder="نام کاربری"
+    class="light text-dark"
+    style="margin-top: 30px; margin-left: auto;margin-right: auto; width: 90%;"
+  ></ion-input>
+  <ion-input
+    placeholder="رمز عبور"
+    type="password"
+    class="light text-dark"
+    style="margin-top: 20px;margin-bottom: 20px;margin-left: auto;margin-right: auto; width: 90%;"
+  ></ion-input>
+  <ion-button
+    (click)="login()"
+    color="main"
+    class="dark"
+    expand="block"
+    style="margin-top: 40px;margin-left: auto;margin-right: auto; width:60%;"
+    >ورود</ion-button
+  >
+</ion-content>

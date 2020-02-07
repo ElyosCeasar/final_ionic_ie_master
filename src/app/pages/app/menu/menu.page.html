@@ -1,0 +1,39 @@
+<ion-menu contentId="content" type="overlay" side="end">
+  <ion-header dir="rtl">
+    <ion-toolbar color="main" class=" menu-head">
+      <ion-title> <span color="main" class="text-light">منو</span></ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content color="main" class="dark" dir="rtl">
+    <div *ngFor="let p of pages">
+      <ion-menu-toggle *ngIf="p.url">
+        <ion-item
+          [routerLink]="p.url"
+          routerDirection="root"
+          routerLinkActive="active"
+          color="main"
+          class="dark text-light"
+        >
+          <ion-icon [name]="p.icon" slot="start"></ion-icon>
+          <ion-label>
+            {{p.title}}
+          </ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <!-- <button
+        (click)="p.open=!p.open"
+        color="main"
+        class="dark text-light"
+        [class.active-parent]="p.open"
+        detail="false"
+      >
+        {{p.title}}
+      </button> -->
+    </div>
+  </ion-content>
+</ion-menu>
+<ion-router-outlet id="content" main></ion-router-outlet>
+<!-- ionic cordova platform add android -->
+<!-- adb devices -->
+<!-- ionic cordova run android -->

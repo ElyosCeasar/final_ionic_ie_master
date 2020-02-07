@@ -17,7 +17,7 @@ export class ShowSpeceficFormPage implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.id = params.id;
       console.log('passedId', this.id);
-      this.appService.getSpeceficFormById(this.id).subscribe((data) => {
+      this.appService.getSpeceficFormById(this.id).subscribe((data: any) => {
         console.log(data.form.fields);
         this.formTitle = data.form.title;
         this.form = data.form.fields;

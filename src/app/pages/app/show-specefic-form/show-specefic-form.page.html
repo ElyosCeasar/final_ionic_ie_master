@@ -16,9 +16,39 @@
   <div *ngFor="let item of form">
     <h3 class=" text-light" style="text-align: center; ">{{item.title}}</h3>
     <ion-input
+      *ngIf="item.type==='Text'&&item.hasOptions!==true"
       [(ngModel)]="password"
       class="light text-dark"
       style="margin-left: auto;margin-right: auto; width: 90%;display: block;"
     ></ion-input>
+    <ion-input
+      *ngIf="item.type==='Number'&&item.hasOptions!==true"
+      [(ngModel)]="password"
+      type="number"
+      class="light text-dark"
+      style="margin-left: auto;margin-right: auto; width: 90%;display: block;"
+    ></ion-input>
+    <ion-input
+      *ngIf="item.type==='Location'&&item.hasOptions!==true"
+      [(ngModel)]="password"
+      class="light text-dark"
+      style="margin-left: auto;margin-right: auto; width: 90%;display: block;"
+    ></ion-input>
+    <ion-datetime
+      displayFormat="MM DD YY"
+      *ngIf="item.type==='Date'&&item.hasOptions!==true"
+      [(ngModel)]="password"
+      class="light text-dark"
+      style="margin-left: auto;margin-right: auto; width: 90%;display: block;"
+    ></ion-datetime>
+
+    <ion-select
+      *ngIf="item.hasOptions===true"
+      class="light text-dark"
+      style="margin-left: auto;margin-right: auto; width: 90%;display: block;"
+    >
+      <ion-select-option value="brown">Brown</ion-select-option>
+      <ion-select-option value="blonde">Blonde</ion-select-option>
+    </ion-select>
   </div>
 </ion-content>

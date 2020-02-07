@@ -13,13 +13,9 @@ export class AppService {
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   getAllForms(): Observable<any> {
-
-    const token = this.authService.getToken();
-    // tslint:disable-next-line:variable-name
-    const headers_object = new HttpHeaders().set('Authorization', 'Bearer ' + token);
-    const httpOptions = {
-      headers: headers_object
-    };
-    return this.http.get(this.url + '/api/forms', httpOptions);
+    return this.http.get(this.url + '/api/forms', this.authService.getHeaderOptionForSend());
+  }
+  getSpeceficFormById(id) {
+    return this.http.get(this.url + '/api/forms/' + id, this.authService.getHeaderOptionForSend());
   }
 }

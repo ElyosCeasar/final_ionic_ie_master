@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="main" class="dark">
+    <ion-buttons slot="start">
+      <ion-menu-button class="text-light">
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>
+    <ion-title class="text-light">پر کردن فرم</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content dir="rtl" class="main-background" color="main">
+  <ion-text style="text-align: center; ">
+    <h2 class=" text-dark"><b>نام فرم :</b><span>{{' '+formTitle}}</span></h2>
+  </ion-text>
+  <div *ngFor="let item of form">
+    <h3 class=" text-light" style="text-align: center; ">{{item.title}}</h3>
+    <ion-input
+      [(ngModel)]="password"
+      class="light text-dark"
+      style="margin-left: auto;margin-right: auto; width: 90%;display: block;"
+    ></ion-input>
+  </div>
+</ion-content>

@@ -16,7 +16,17 @@ const routes: Routes = [
       {
         path: 'show',
         loadChildren: () => import('../show/show.module').then(m => m.ShowPageModule)
-      }]
+      },
+      {
+        path: 'showSpeceficForm/:id',
+        loadChildren: () => import('../show-specefic-form/show-specefic-form.module').then(m => m.ShowSpeceficFormPageModule)
+      },
+      {
+        path: 'showSpeceficFormForManager/:id',
+        loadChildren: () => import('../show-specefic-form-for-manager/show-specefic-form-for-manager.module')
+          .then(m => m.ShowSpeceficFormForManagerPageModule)
+      }
+    ]
   }
 ];
 

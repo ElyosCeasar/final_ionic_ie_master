@@ -11,9 +11,9 @@
 
 <ion-content dir="rtl" class="main-background" color="main">
   <ion-text style="text-align: center; ">
-    <h1 class=" text-dark">
+    <h2 class=" text-dark">
       <b>مشاهده‌ی فرم‌های موجود</b>
-    </h1>
+    </h2>
   </ion-text>
   <ion-list>
     <ion-list-header>
@@ -24,8 +24,18 @@
     <ion-item *ngFor="let item of forms">
       <ion-text style="width: 20%;">{{item.key}}</ion-text>
       <ion-text style="width: 60%;">{{item.name}}</ion-text>
-      <ion-button style="width: 20%;">پر کردن</ion-button>
-      <!-- <ion-button style="width: 10%;">مشاهده کردن</ion-button> -->
+      <ion-button
+        style="width: 20%;"
+        *ngIf="role==='fieldAgent'"
+        (click)="showSpeceficForm(item.key)"
+        >پر کردن</ion-button
+      >
+      <ion-button
+        style="width: 20%;"
+        *ngIf="role!=='fieldAgent'"
+        (click)="showSpeceficFormForManager(item.key)"
+        >مشاهده کردن</ion-button
+      >
     </ion-item>
   </ion-list>
 </ion-content>

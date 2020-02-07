@@ -3,8 +3,8 @@ import { BehaviorSubject } from 'rxjs';
 import { Storage } from '@ionic/storage';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Platform } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ToastController } from '@ionic/angular';
 const TOKEN_KEY = 'auth-token';
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class AuthService {
   jwtHelper = new JwtHelperService();
   token = '';
   authenticationState = new BehaviorSubject(false);
-  constructor(private storage: Storage, private plt: Platform, private http: HttpClient) {
+  constructor(private storage: Storage, private plt: Platform, private http: HttpClient, private toastController: ToastController) {
     this.plt.ready().then(() => {
       this.checkToken();
     });
@@ -25,6 +25,7 @@ export class AuthService {
       username,
       password
     };
+    this.presentToast('درحال ارتباط با سرور');
     this.http.post(this.url + '/api/auth/login', loginInfo).subscribe((data) => {
       console.log('tok', data);
 
@@ -37,6 +38,7 @@ export class AuthService {
             this.token = err.error.text;
             if (decodedToken.Role !== 'admin') {
               this.authenticationState.next(true);
+              this.presentToast('ورود موفقیت آمیز بود');
 
               // const refreshIntervalId = setInterval(() => {
               //   if (this.checkIfTokenIsExpired()) {
@@ -44,12 +46,15 @@ export class AuthService {
               //   }
               // }, 10000);
             } else {
-              console.log('admin');
+
+              this.presentToast('ادمین اجازه‌ی ورود به این بخش را ندارد');
             }
           });
 
         } else {
           console.log('err', err.error);
+          this.presentToast('مشکلی به وجود آمد :' + err.console.error
+          );
         }
       }
     );
@@ -93,6 +98,21 @@ export class AuthService {
   getToken() {
     return this.token;
   }
-
+  getHeaderOptionForSend() {
+    const token = this.getToken();
+    // tslint:disable-next-line:variable-name
+    const headers_object = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    const httpOptions = {
+      headers: headers_object
+    };
+    return httpOptions;
+  }
+  async presentToast(messageText) {
+    const toast = await this.toastController.create({
+      message: messageText,
+      duration: 2000
+    });
+    toast.present();
+  }
 }
 

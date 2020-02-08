@@ -25,11 +25,19 @@ export class MapComponent implements OnInit {
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
-    const marker: google.maps.Marker = new google.maps.Marker({
-      map: this.map,
-      position: coords
+    // const marker: google.maps.Marker = new google.maps.Marker({
+    //   map: this.map,
+    //   position: coords
+    // });
+    google.maps.event.addListener(this.map, 'click', (evt) => {
+      console.log("coc", evt);
+      // marker.setPosition(evt.latLng);
+      const marker: google.maps.Marker = new google.maps.Marker({
+        map: this.map,
+        position: coords
+      });
+      marker.setPosition(evt.latLng);
     });
-
   }
 
 

@@ -6,6 +6,8 @@ import { Platform } from '@ionic/angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastController } from '@ionic/angular';
 const TOKEN_KEY = 'auth-token';
+import { LoadingController } from '@ionic/angular';
+import { LoadingService } from './loading.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +16,8 @@ export class AuthService {
   jwtHelper = new JwtHelperService();
   token = '';
   authenticationState = new BehaviorSubject(false);
-  constructor(private storage: Storage, private plt: Platform, private http: HttpClient, private toastController: ToastController) {
+  constructor(private storage: Storage, private plt: Platform, private http: HttpClient,
+    private toastController: ToastController, private loadingController: LoadingController, private loading: LoadingService) {
     this.plt.ready().then(() => {
       this.checkToken();
     });
@@ -25,13 +28,17 @@ export class AuthService {
       username,
       password
     };
+    this.loading.present();
     this.presentToast('درحال ارتباط با سرور');
     this.http.post(this.url + '/api/auth/login', loginInfo).subscribe((data) => {
       console.log('tok', data);
-
+      this.presentToast('مشکلی به وجود آمد :' + 'پیشبینی نشده'
+      );
+      this.loading.dismiss();
     },
       (err) => {
         if (err.status && err.status === 200) {
+          this.loading.dismiss();
 
           this.storage.set(TOKEN_KEY, err.error.text).then((res) => {
             const decodedToken = this.jwtHelper.decodeToken(err.error.text);
@@ -46,12 +53,13 @@ export class AuthService {
               //   }
               // }, 10000);
             } else {
-
+              this.loading.dismiss();
               this.presentToast('ادمین اجازه‌ی ورود به این بخش را ندارد');
             }
           });
 
         } else {
+          this.loading.dismiss();
           console.log('err', err.error);
           this.presentToast('مشکلی به وجود آمد :' + err.error
           );
@@ -114,5 +122,18 @@ export class AuthService {
     });
     toast.present();
   }
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'لطفا صبر کنید',
+      duration: 10000
+    });
+    loading.present();
+    return loading;
+    // const { role, data } = await loading.onDidDismiss();
+
+    console.log('Loading dismissed!');
+  }
+
+
 }
 

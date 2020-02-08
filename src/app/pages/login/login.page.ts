@@ -10,27 +10,17 @@ import { LoadingController } from '@ionic/angular';
 export class LoginPage implements OnInit {
   username = '';
   password = '';
-  constructor(private authService: AuthService, private router: Router,private loadingController: LoadingController) { }
+  constructor(private authService: AuthService, private router: Router, private loadingController: LoadingController) { }
 
   ngOnInit() {
   }
   login() {
-    console.log("lg info", this.username, this.password);
+    console.log('lg info', this.username, this.password);
 
     this.authService.login(this.username, this.password);
-    this.presentLoading() ;
+
 
   }
- async presentLoading() {
-    const loading = await this.loadingController.create({
-      message: 'لطفا صبر کنید',
-      duration: 4000
-    });
-    await loading.present();
 
-    const { role, data } = await loading.onDidDismiss();
-
-    console.log('Loading dismissed!');
-  }
 
 }

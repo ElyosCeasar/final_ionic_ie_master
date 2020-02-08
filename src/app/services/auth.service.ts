@@ -53,7 +53,7 @@ export class AuthService {
 
         } else {
           console.log('err', err.error);
-          this.presentToast('مشکلی به وجود آمد :' + err.console.error
+          this.presentToast('مشکلی به وجود آمد :' + err.error
           );
         }
       }

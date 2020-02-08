@@ -28,12 +28,11 @@
       class="light text-dark"
       style="margin-left: auto;margin-right: auto; width: 90%;display: block;"
     ></ion-input>
-    <ion-input
+    <app-map
       *ngIf="item.type==='Location'&&item.hasOptions!==true"
-      [(ngModel)]="password"
-      class="light text-dark"
       style="margin-left: auto;margin-right: auto; width: 90%;display: block;"
-    ></ion-input>
+    ></app-map>
+
     <ion-datetime
       displayFormat="MM DD YY"
       *ngIf="item.type==='Date'&&item.hasOptions!==true"
@@ -47,8 +46,9 @@
       class="light text-dark"
       style="margin-left: auto;margin-right: auto; width: 90%;display: block;"
     >
-      <ion-select-option value="brown">Brown</ion-select-option>
-      <ion-select-option value="blonde">Blonde</ion-select-option>
+      <ion-select-option *ngFor="let item2 of item.options" value="item2.value"
+        >{{item2.label}}</ion-select-option
+      >
     </ion-select>
   </div>
 </ion-content>

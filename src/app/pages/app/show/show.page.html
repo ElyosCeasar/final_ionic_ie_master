@@ -27,12 +27,16 @@
       <ion-button
         style="width: 20%;"
         *ngIf="role==='fieldAgent'"
+        color="main"
+        class="dark"
         (click)="showSpeceficForm(item.key)"
         >پر کردن</ion-button
       >
       <ion-button
         style="width: 20%;"
         *ngIf="role!=='fieldAgent'"
+        color="main"
+        class="dark"
         (click)="showSpeceficFormForManager(item.key)"
         >مشاهده کردن</ion-button
       >

@@ -9,6 +9,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class MapComponent implements OnInit {
   @ViewChild('map', { static: true }) mapElement;
   map: any;
+  allMarker: google.maps.Marker[] = [];
   constructor() { }
   ngOnInit() {
     this.initMap();
@@ -30,15 +31,26 @@ export class MapComponent implements OnInit {
     //   position: coords
     // });
     google.maps.event.addListener(this.map, 'click', (evt) => {
-      console.log("coc", evt);
+      console.log("coc", evt.latLng.lat());
       // marker.setPosition(evt.latLng);
       const marker: google.maps.Marker = new google.maps.Marker({
         map: this.map,
         position: coords
       });
       marker.setPosition(evt.latLng);
+      this.allMarker.push(marker);
+      google.maps.event.addListener(marker, 'click', (evt) => { marker.setMap(null); });
+
     });
   }
-
-
+  getAllSelectedPlaces() {
+    const res = [];
+    this.allMarker.forEach(element => {
+      if (element.getMap() !== null) {
+        res.push({ lat: element.getPosition().lat(), lng: element.getPosition().lng() });
+      }
+    });
+    console.log("all selected", res);
+    return res;
+  }
 }

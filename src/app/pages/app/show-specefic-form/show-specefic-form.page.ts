@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppService } from './../../../services/app.service';
+import { MapComponent } from './../../../components/map/map.component';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-show-specefic-form',
@@ -9,10 +11,12 @@ import { AppService } from './../../../services/app.service';
 })
 export class ShowSpeceficFormPage implements OnInit {
   form = [];
-
+  answers = [];
+  placesAnswers = [];
   id = -1;
   formTitle = '';
-  constructor(private activatedRoute: ActivatedRoute, private appService: AppService) { }
+  @ViewChildren(MapComponent) maps !: QueryList<MapComponent>;
+  constructor(private activatedRoute: ActivatedRoute, private appService: AppService, private storage: Storage, private router: Router) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
@@ -22,9 +26,45 @@ export class ShowSpeceficFormPage implements OnInit {
         console.log(data.form.fields);
         this.formTitle = data.form.title;
         this.form = data.form.fields;
+        data.form.fields.forEach(element => {
+          this.answers.push('');
+        });
       });
 
     });
+  }
+  send() {
+    const res = [];
+    this.maps.forEach((item) => {
+      this.placesAnswers.push(item.getAllSelectedPlaces());
+    });
+    this.form.forEach((element, index) => {
+      if (element.type !== 'Location') {
+        res.push({
+          name: element.title,
+          answer: this.answers[index]
+        });
+      } else {
+        let placesIndexTemp = -1;
+        let placesIndex = -1;
+        this.form.forEach((q) => {
+          if (q.type === 'Location') {
+            placesIndexTemp++;
+
+            if (q.title === element.title) {
+              placesIndex = placesIndexTemp;
+            }
+          }
+        });
+
+        res.push({
+          name: element.title,
+          answer: this.placesAnswers[placesIndex]
+        });
+      }
+    });
+    this.storage.set('transObj', res);
+    this.router.navigate(['main-app/menu/showAnswers']);
   }
 
 }

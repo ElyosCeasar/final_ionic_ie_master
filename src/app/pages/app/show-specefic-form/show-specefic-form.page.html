@@ -13,32 +13,32 @@
   <ion-text style="text-align: center; ">
     <h2 class=" text-dark"><b>نام فرم :</b><span>{{' '+formTitle}}</span></h2>
   </ion-text>
-  <div *ngFor="let item of form">
+  <div *ngFor="let item of form; let i = index">
     <h3 class=" text-light" style="text-align: center; ">{{item.title}}</h3>
 
     <ion-input
       *ngIf="item.type==='Text'&&item.hasOptions!==true&&item.required!== 'true'"
-      [(ngModel)]="password"
+      [(ngModel)]="answers[i]"
       class="light text-dark"
       style="margin-left: auto;margin-right: auto; width: 90%;display: block;"
     ></ion-input>
     <ion-input
       *ngIf="item.type==='Text'&&item.hasOptions!==true&&item.required=== 'true'"
-      [(ngModel)]="password"
+      [(ngModel)]="answers[i]"
       class="light2 text-dark"
       style="margin-left: auto;margin-right: auto; width: 90%;display: block;"
     ></ion-input>
     <!-- ------------------------------------------------------------------------------ -->
     <ion-input
       *ngIf="item.type==='Number'&&item.hasOptions!==true&&item.required!== 'true'"
-      [(ngModel)]="password"
+      [(ngModel)]="answers[i]"
       type="number"
       class="light text-dark"
       style="margin-left: auto;margin-right: auto; width: 90%;display: block;"
     ></ion-input>
     <ion-input
       *ngIf="item.type==='Number'&&item.hasOptions!==true&&item.required=== 'true'"
-      [(ngModel)]="password"
+      [(ngModel)]="answers[i]"
       type="number"
       class="light2 text-dark"
       style="margin-left: auto;margin-right: auto; width: 90%;display: block;"
@@ -52,33 +52,39 @@
     <ion-datetime
       displayFormat="MM DD YY"
       *ngIf="item.type==='Date'&&item.hasOptions!==true&&item.required!== 'true'"
-      [(ngModel)]="password"
+      [(ngModel)]="answers[i]"
       class="light text-dark"
       style="margin-left: auto;margin-right: auto; width: 90%;display: block;"
     ></ion-datetime>
     <ion-datetime
       displayFormat="MM DD YY"
       *ngIf="item.type==='Date'&&item.hasOptions!==true&&item.required=== 'true'"
-      [(ngModel)]="password"
+      [(ngModel)]="answers[i]"
       class="light2 text-dark"
       style="margin-left: auto;margin-right: auto; width: 90%;display: block;"
     ></ion-datetime>
     <!-- ------------------------------------------------------------------------------ -->
     <ion-select
       *ngIf="item.hasOptions===true&&item.required!== 'true'"
+      [(ngModel)]="answers[i]"
       class="light text-dark"
       style="margin-left: auto;margin-right: auto; width: 90%;display: block;"
     >
-      <ion-select-option *ngFor="let item2 of item.options" value="item2.value"
+      <ion-select-option
+        *ngFor="let item2 of item.options"
+        [value]="item2.value"
         >{{item2.label}}</ion-select-option
       >
     </ion-select>
     <ion-select
       *ngIf="item.hasOptions===true&&item.required=== 'true'"
+      [(ngModel)]="answers[i]"
       class="light2 text-dark"
       style="margin-left: auto;margin-right: auto; width: 90%;display: block;"
     >
-      <ion-select-option *ngFor="let item2 of item.options" value="item2.value"
+      <ion-select-option
+        *ngFor="let item2 of item.options"
+        [value]="item2.value"
         >{{item2.label}}</ion-select-option
       >
     </ion-select>
@@ -87,6 +93,7 @@
   <ion-button
     color="main"
     class="dark"
+    (click)="send()"
     expand="block"
     style="margin-top: 40px;margin-bottom: 100px; margin-left: auto;margin-right: auto; width:60%;"
     >ارسال</ion-button
